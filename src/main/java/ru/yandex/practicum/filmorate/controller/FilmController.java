@@ -19,24 +19,24 @@ public class FilmController {
     private int id = 1;
 
     @ResponseBody
-    @PostMapping(value = "/films")
+    @PostMapping
     public Film create(@Valid @RequestBody Film film) {
         filmValidation(film);
+        log.info("'{}' movie was added to a library, the identifier is '{}'", film.getName(), film.getId());
         film.setId(id);
         films.put(film.getId(), film);
-        log.info("'{}' movie was added to a library, the identifier is '{}'", film.getName(), film.getId());
         return film;
     }
 
     @ResponseBody
-    @GetMapping("/films")
+    @GetMapping
     public List<Film> getFilms() {
         log.info("There is '{}' movies in a library now", films.size());
         return new ArrayList<>(films.values());
     }
 
     @ResponseBody
-    @PutMapping("/films")
+    @PutMapping
     public Film update(@Valid @RequestBody Film film) {
         filmValidation(film);
         if (films.containsKey(film.getId())) {
@@ -49,25 +49,25 @@ public class FilmController {
         return film;
     }
 
-    private void filmValidation(Film film) {
+    public static void filmValidation(Film film) {
         String str = film.getDescription();
         char[] strToArray = str.toCharArray(); // Преобразуем строку str в массив символов (char)
+        if (strToArray.length > 200 || strToArray.length == 0) {
+            log.debug("Длина описание фильма > 200");
+            throw new ValidationException(String.format("Description increases 200 symbols or empty"));
+        }
         if (film.getReleaseDate() == null ||
                 film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
-            throw new ValidationException("Incorrect release date");
+            log.debug("Дата релиза < 28.12.1895");
+            throw new ValidationException(String.format("Incorrect release date"));
         }
         if (film.getName().isEmpty() || film.getName().isBlank() || film.getName() == null) {
-            throw new ValidationException("Attempt to set an empty movie name");
+            log.debug("Название фильма пустое");
+            throw new ValidationException(String.format("Attempt to set an empty movie name"));
         }
         if (film.getDuration() < 0) {
-            throw new ValidationException("Attempt to set duration less than zero");
-        }
-        if (strToArray.length > 200 || strToArray.length == 0) {
-            throw new ValidationException("Description increases 200 symbols or empty");
-        }
-        if (film.getId() <= 0) {
-            film.setId(++id);
-            log.info("Incorrect movie identifier was set as '{}", film.getId());
+            log.debug("Длительность меньше 0");
+            throw new ValidationException(String.format("Attempt to set duration less than zero"));
         }
     }
 }

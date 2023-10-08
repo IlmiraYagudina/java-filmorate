@@ -1,15 +1,19 @@
 package ru.yandex.practicum.filmorate;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
-
 import java.time.LocalDate;
 
 @SpringBootTest
+@RestController
+@RequestMapping("/films")
+@Slf4j
 public class FilmControllerTest {
     private final FilmController controller = new FilmController();
     private final Film film = Film.builder()
@@ -76,3 +80,4 @@ public class FilmControllerTest {
     }
 
 }
+

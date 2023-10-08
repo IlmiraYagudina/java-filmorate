@@ -11,11 +11,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 public class Film {
-    @PositiveOrZero
-    private int id;
+    @Positive
+    private Integer id;
     @NotBlank
     private String name;
-    @Size(min = 1, max = 200)
+    @NotBlank
+    @Size(max = 200)
     private String description;
     private LocalDate releaseDate;
     @Min(1)
