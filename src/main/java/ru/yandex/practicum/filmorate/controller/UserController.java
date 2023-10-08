@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 public class UserController {
     private final HashMap<Integer, User> users = new HashMap<>();
-    private int id = 0;
+    private static int id = 0;
 
     @ResponseBody
     @PostMapping
@@ -48,7 +48,7 @@ public class UserController {
         return user;
     }
 
-    public static void userValidation(User user) {
+    public void userValidation(User user) {
         if (user.getBirthday().isAfter(LocalDate.now()) || user.getBirthday() == null) {
             throw new ValidationException("Incorrect user's birthday with identifier '" + user.getId() + "'");
         }
@@ -59,7 +59,10 @@ public class UserController {
             user.setName(user.getLogin());
             log.info("User's name with identifier '{}' was set as '{}'", user.getId(), user.getName());
         }
-
+        if (user.getId() == 0 || user.getId() < 0) {
+            user.setId(++id);
+            log.info("Incorrect user identifier was set as '{}'", user.getId());
+        }
         if (user.getLogin().isBlank() || user.getLogin().isEmpty()) {
             throw new ValidationException("Incorrect login with user's identifier '" + user.getId() + "'");
         }
