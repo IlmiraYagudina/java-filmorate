@@ -12,17 +12,17 @@ import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
-
 @RestController
 @RequestMapping("/films")
 public class FilmController {
     private final HashMap<Integer, Film> films = new HashMap<>();
-    private int id = 0;
+    private int id = 1;
 
     @ResponseBody
     @PostMapping(value = "/films")
     public Film create(@Valid @RequestBody Film film) {
         filmValidation(film);
+        film.setId(id);
         films.put(film.getId(), film);
         log.info("'{}' movie was added to a library, the identifier is '{}'", film.getName(), film.getId());
         return film;
@@ -43,23 +43,26 @@ public class FilmController {
             films.put(film.getId(), film);
             log.info("'{}' movie was updated in a library, the identifier is '{}'", film.getName(), film.getId());
         } else {
+            log.debug("Фильм не существует");
             throw new ValidationException("Attempt to update non-existing movie");
         }
         return film;
     }
 
     private void filmValidation(Film film) {
+        String str = film.getDescription();
+        char[] strToArray = str.toCharArray(); // Преобразуем строку str в массив символов (char)
         if (film.getReleaseDate() == null ||
                 film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
             throw new ValidationException("Incorrect release date");
         }
-        if (film.getName().isEmpty() || film.getName().isBlank()) {
+        if (film.getName().isEmpty() || film.getName().isBlank() || film.getName() == null) {
             throw new ValidationException("Attempt to set an empty movie name");
         }
-        if (film.getDuration() <= 0) {
+        if (film.getDuration() < 0) {
             throw new ValidationException("Attempt to set duration less than zero");
         }
-        if (film.getDescription().length() > 200 || film.getDescription().length() == 0) {
+        if (strToArray.length > 200 || strToArray.length == 0) {
             throw new ValidationException("Description increases 200 symbols or empty");
         }
         if (film.getId() <= 0) {

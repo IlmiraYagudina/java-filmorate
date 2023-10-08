@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 public class Film {
-    @Positive
+    @PositiveOrZero
     private int id;
     @NotBlank
     private String name;
