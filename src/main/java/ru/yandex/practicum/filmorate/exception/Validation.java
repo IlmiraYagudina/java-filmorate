@@ -47,7 +47,7 @@ public class Validation {
         if (user.getEmail() == null || user.getEmail().isBlank() || !user.getEmail().contains("@")) {
             throw new ValidationException("Incorrect user's email with identifier '" + user.getId() + "'");
         }
-        if (user.getName() == null || user.getName().isBlank()) {
+        if (user.getName().isEmpty() || user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());
             log.info("User's name was set as '{}'", user.getName());
         }
