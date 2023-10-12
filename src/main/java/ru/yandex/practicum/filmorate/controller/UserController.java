@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 public class UserController {
     private final HashMap<Integer, User> users = new HashMap<>();
-    private int id = 0;
+    private int id = 1;
 
     /**
      * Добавление пользователя.
