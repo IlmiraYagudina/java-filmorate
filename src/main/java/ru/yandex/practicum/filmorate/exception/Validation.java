@@ -52,7 +52,7 @@ public class Validation {
             log.info("User's name with identifier '{}' was set as '{}'", user.getId(), user.getName());
         }
         if (user.getId() == 0 || user.getId() < 0) {
-            int id = 0;
+            int id = 1;
             user.setId(++id);
             log.info("Incorrect user identifier was set as '{}'", user.getId());
         }
