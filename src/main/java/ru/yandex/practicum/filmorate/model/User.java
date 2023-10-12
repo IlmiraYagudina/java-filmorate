@@ -14,8 +14,12 @@ public class User {
     @PositiveOrZero
     private int id; // Идентификатор
     @Email
+    @NotBlank
+    @NotNull
     private String email; // Электронная почта
     @NotNull
+    @NotEmpty
+    @NotBlank
     private String login; // Логин пользователя
     private String name; // Имя для отображения
     @PastOrPresent
