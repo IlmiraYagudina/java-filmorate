@@ -49,7 +49,7 @@ public class Validation {
         }
         if (user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());
-            log.info("User's name was set as '{}'", user.getName());
+            log.info("User's name was set as '{}' and user identifier was set as '{}'", user.getId(), user.getName());
         }
         if (user.getId() == 0 || user.getId() < 0) {
             int id = user.getId();
