@@ -21,7 +21,7 @@ public class UserControllerTest {
             .build();
 
     @Test
-    void create_shouldCreateAUser() {
+    void create_shouldCreateAUser() { // Создание пользователя
         User thisUser = new User(1, "yandex@yandex.ru", "user", "User",
                 LocalDate.of(1990, 1, 1));
         controller.create(thisUser);
@@ -31,7 +31,7 @@ public class UserControllerTest {
     }
 
     @Test
-    void update_shouldUpdateUserData() {
+    void update_shouldUpdateUserData() { //Обновление даты
         User thisUser = new User(1, "mail@yandex.ru", "user", "User",
                 LocalDate.of(1976, 9, 20));
         controller.create(user);
@@ -43,7 +43,7 @@ public class UserControllerTest {
     }
 
     @Test
-    void create_shouldCreateAUserIfNameIsEmpty() {
+    void create_shouldCreateAUserIfNameIsEmpty() { // Если пустое название
         User thisUser = new User(1, "mail@yandex.ru", "user", null,
                 LocalDate.of(1990, 1, 1));
         controller.create(thisUser);
@@ -53,7 +53,7 @@ public class UserControllerTest {
     }
 
     @Test
-    void create_shouldThrowExceptionIfEmailIncorrect() {
+    void create_shouldThrowExceptionIfEmailIncorrect() { // Если пустой @
         user.setEmail("yandex.mail.ru");
 
         Assertions.assertThrows(ValidationException.class, () -> controller.create(user));
@@ -61,7 +61,7 @@ public class UserControllerTest {
     }
 
     @Test
-    void create_shouldThrowExceptionIfEmailIsEmpty() {
+    void create_shouldThrowExceptionIfEmailIsEmpty() { // Если пустой email
         user.setEmail("");
 
         Assertions.assertThrows(ValidationException.class, () -> controller.create(user));
@@ -69,7 +69,7 @@ public class UserControllerTest {
     }
 
     @Test
-    void create_shouldNotAddUserIfLoginIsEmpty() {
+    void create_shouldNotAddUserIfLoginIsEmpty() { // Если логин пуст
         user.setLogin("");
 
         Assertions.assertThrows(ValidationException.class, () -> controller.create(user));
@@ -77,7 +77,7 @@ public class UserControllerTest {
     }
 
     @Test
-    void create_shouldNotAddUserIfBirthdayIsInTheFuture() {
+    void create_shouldNotAddUserIfBirthdayIsInTheFuture() { // Если день рождения записано в будущем
         user.setBirthday(LocalDate.of(2024, 6, 28));
 
         Assertions.assertThrows(ValidationException.class, () -> controller.create(user));

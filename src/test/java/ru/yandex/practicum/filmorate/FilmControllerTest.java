@@ -25,7 +25,7 @@ public class FilmControllerTest {
             .build();
 
     @Test
-    void create_shouldAddAMovie() {
+    void create_shouldAddAMovie() { // Задание фильма
         Film thisFilm = new Film(1, "Movie", "The most awesome movie I've ever seen",
                 LocalDate.of(2020, 2, 2), 120);
         controller.create(thisFilm);
@@ -35,7 +35,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void update_shouldUpdateMovieData() {
+    void update_shouldUpdateMovieData() { // Обновление даты
         Film thisFilm = new Film(1, "Movie", "I cried at the end, it was very thoughtful",
                 LocalDate.of(2020, 2, 2), 120);
         controller.create(film);
@@ -46,7 +46,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void create_shouldNotAddAMovieWithAnEmptyName() {
+    void create_shouldNotAddAMovieWithAnEmptyName() { // Если название пустое
         film.setName("");
 
         Assertions.assertThrows(ValidationException.class, () -> controller.create(film));
@@ -54,7 +54,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void create_shouldNotAddAMovieWithDescriptionMoreThan200() {
+    void create_shouldNotAddAMovieWithDescriptionMoreThan200() { // Если описание более 200
         film.setDescription("This is the most amazing and terrifying movie in my life. I love scary movies," +
                 "but I've never seen such precise details of serial killers doing thier job." +
                 "You should deffinately see this one. Actually, this movie was based on a true story. Creepy...");
@@ -64,7 +64,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void create_shouldNotAddAMovieWithDateReleaseMoreThan1895() {
+    void create_shouldNotAddAMovieWithDateReleaseMoreThan1895() { // Если дата старше 28.12.1895
         film.setReleaseDate(LocalDate.of(1891, 2, 2));
 
         Assertions.assertThrows(ValidationException.class, () -> controller.create(film));
@@ -72,7 +72,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    void create_shouldNotAddAMovieIfDurationIsMoreThan0() {
+    void create_shouldNotAddAMovieIfDurationIsMoreThan0() { // Продолжительность отрицательная
         film.setDuration(-15);
 
         Assertions.assertThrows(ValidationException.class, () -> controller.create(film));

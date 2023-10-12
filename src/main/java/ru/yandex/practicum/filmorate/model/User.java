@@ -12,12 +12,12 @@ import java.time.LocalDate;
 @Builder
 public class User {
     @PositiveOrZero
-    private int id;
+    private int id; // Идентификатор
     @Email
-    private String email;
+    private String email; // Электронная почта
     @NotNull
-    private String login;
-    private String name;
+    private String login; // Логин пользователя
+    private String name; // Имя для отображения
     @PastOrPresent
-    private LocalDate birthday;
+    private LocalDate birthday; // Дата рождения
 }
