@@ -47,12 +47,12 @@ public class Validation {
         if (user.getEmail() == null || user.getEmail().isBlank() || !user.getEmail().contains("@")) {
             throw new ValidationException("Incorrect user's email with identifier '" + user.getId() + "'");
         }
-        if (user.getName().isEmpty() || user.getName() == null || user.getName().isBlank()) {
+        if (user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());
             log.info("User's name was set as '{}'", user.getName());
         }
         if (user.getId() == 0 || user.getId() < 0) {
-            int id = 0;
+            int id = user.getId();
             user.setId(++id);
             log.info("Incorrect user identifier was set as '{}'", user.getId());
         }
