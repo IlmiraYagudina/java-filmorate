@@ -30,8 +30,14 @@ public class UserController {
     @PostMapping
     public User create(@Valid @RequestBody User user) {
         Validation.userValidation(user);
+        if (users.containsKey(user.getId())) {
+            log.debug("Email already exists");
+            throw new ValidationException(String.format("Email %s already exists.", user.getEmail()));
+        }
+        log.debug("The user '{}' has been saved with the identifier '{}'", user.getEmail(), user.getId());
+        user.setId(id);
+        id++;
         users.put(user.getId(), user);
-        log.info("The user '{}' has been saved with the identifier '{}'", user.getEmail(), user.getId());
         return user;
     }
 
