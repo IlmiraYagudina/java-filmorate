@@ -5,9 +5,11 @@ import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.time.LocalDate;
+
 @Slf4j
 public class Validation {
     private Validation() {
+
     }
 
     /**
@@ -50,7 +52,7 @@ public class Validation {
             log.info("User's name with identifier '{}' was set as '{}'", user.getId(), user.getName());
         }
         if (user.getId() == 0 || user.getId() < 0) {
-            int id=0;
+            int id = 0;
             user.setId(++id);
             log.info("Incorrect user identifier was set as '{}'", user.getId());
         }
