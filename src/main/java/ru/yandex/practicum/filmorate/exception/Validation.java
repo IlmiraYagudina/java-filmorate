@@ -1,13 +1,21 @@
 package ru.yandex.practicum.filmorate.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
-
 import java.time.LocalDate;
 
+/**
+ * Утилитарный класс реализующий проверку соответствия данных в полях объектов с типом Film и User
+ */
 @Slf4j
+@ResponseStatus(HttpStatus.BAD_REQUEST)
 public class Validation {
+    /**
+     * Пустой приватный конструктор для запрета создания экземпляров утилитарного класса
+     */
     private Validation() {
 
     }
@@ -52,7 +60,7 @@ public class Validation {
             log.info("User's name was set as '{}' and user identifier was set as '{}'", user.getId(), user.getName());
         }
         if (user.getId() == 0 || user.getId() < 0) {
-            int id = user.getId();
+            Long id = (long) user.getId();
             user.setId(++id);
             log.info("Incorrect user identifier was set as '{}'", user.getId());
         }

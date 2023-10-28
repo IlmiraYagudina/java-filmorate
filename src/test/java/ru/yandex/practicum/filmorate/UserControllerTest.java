@@ -3,85 +3,111 @@ package ru.yandex.practicum.filmorate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import ru.yandex.practicum.filmorate.controller.UserController;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
-
+import ru.yandex.practicum.filmorate.service.UserService;
+import ru.yandex.practicum.filmorate.storage.user.UserStorage;
+import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @SpringBootTest
 public class UserControllerTest {
-    private final UserController controller = new UserController();
+    private final UserStorage inMemoryUserStorage = new InMemoryUserStorage();
+    private final UserService userService = new UserService(inMemoryUserStorage);
+
     private final User user = User.builder()
-            .id(1)
+            .id(1L)
             .email("yandex@yandex.ru")
             .login("user")
             .name("User")
             .birthday(LocalDate.of(1990, 1, 1))
             .build();
 
-    @Test
-    void create_shouldCreateAUser() { // Создание пользователя
-        User thisUser = new User(1, "yandex@yandex.ru", "user", "User",
-                LocalDate.of(1990, 1, 1));
-        controller.create(thisUser);
+    private final User user2 = User.builder()
+            .id(2L)
+            .email("yandex@yandex.ru")
+            .login("user")
+            .name("User2")
+            .birthday(LocalDate.of(1990, 1, 1))
+            .build();
 
-        Assertions.assertEquals(user, thisUser);
-        Assertions.assertEquals(1, controller.getUsers().size());
-    }
+    private final User user3 = User.builder()
+            .id(1L)
+            .email("yandex@yandex.ru")
+            .login("user")
+            .name("User3")
+            .birthday(LocalDate.of(1990, 1, 1))
+            .build();
 
-    @Test
-    void update_shouldUpdateUserData() { //Обновление даты
-        User thisUser = new User(1, "mail@yandex.ru", "user", "User",
-                LocalDate.of(1976, 9, 20));
-        controller.create(user);
-        controller.update(thisUser);
-
-        Assertions.assertEquals("mail@yandex.ru", thisUser.getEmail());
-        Assertions.assertEquals(user.getId(), thisUser.getId());
-        Assertions.assertEquals(1, controller.getUsers().size());
-    }
-
-    @Test
-    void create_shouldCreateAUserIfNameIsEmpty() { // Если пустое название
-        User thisUser = new User(1, "mail@yandex.ru", "user", null,
-                LocalDate.of(1990, 1, 1));
-        controller.create(thisUser);
-
-        Assertions.assertEquals(1, thisUser.getId());
-        Assertions.assertEquals("user", thisUser.getName());
-    }
 
     @Test
     void create_shouldThrowExceptionIfEmailIncorrect() { // Если пустой @
         user.setEmail("yandex.mail.ru");
 
-        Assertions.assertThrows(ValidationException.class, () -> controller.create(user));
-        Assertions.assertEquals(0, controller.getUsers().size());
+        Assertions.assertThrows(ValidationException.class, () -> inMemoryUserStorage.create(user));
+        Assertions.assertEquals(0, inMemoryUserStorage.getUser().size());
     }
 
     @Test
     void create_shouldThrowExceptionIfEmailIsEmpty() { // Если пустой email
         user.setEmail("");
 
-        Assertions.assertThrows(ValidationException.class, () -> controller.create(user));
-        Assertions.assertEquals(0, controller.getUsers().size());
+        Assertions.assertThrows(ValidationException.class, () -> inMemoryUserStorage.create(user));
+        Assertions.assertEquals(0, inMemoryUserStorage.getUser().size());
     }
 
     @Test
     void create_shouldNotAddUserIfLoginIsEmpty() { // Если логин пуст
         user.setLogin("");
 
-        Assertions.assertThrows(ValidationException.class, () -> controller.create(user));
-        Assertions.assertEquals(0, controller.getUsers().size());
+        Assertions.assertThrows(ValidationException.class, () -> inMemoryUserStorage.create(user));
     }
 
     @Test
     void create_shouldNotAddUserIfBirthdayIsInTheFuture() { // Если день рождения записано в будущем
         user.setBirthday(LocalDate.of(2024, 6, 28));
 
-        Assertions.assertThrows(ValidationException.class, () -> controller.create(user));
-        Assertions.assertEquals(0, controller.getUsers().size());
+        Assertions.assertThrows(ValidationException.class, () -> inMemoryUserStorage.create(user));
+    }
+    @Test
+    void addFriend() { // добавить друга
+        Set<Long> friendsTest = new HashSet<>();
+        friendsTest.add(2L);
+        user.addFriend(2L);
+
+        Assertions.assertEquals(user.getFriends(), friendsTest);
     }
 
+    @Test
+    void delFriend() { // удалить друга
+        Set<Long> friendsTest = new HashSet<>();
+        user.addFriend(2L);
+        user.deleteFriend(2L);
+        Assertions.assertEquals(user.getFriends(), friendsTest);
+    }
+
+    @Test
+    void getFriends() { // вывести список общих друзей
+        List<User> friendsTest = new ArrayList<>();
+        friendsTest.add(user3);
+        user.addFriend(3L);
+        user.addFriend(4L);
+        user2.addFriend(3L);
+        inMemoryUserStorage.create(user);
+        inMemoryUserStorage.create(user2);
+        inMemoryUserStorage.create(user3);
+
+        Assertions.assertEquals(userService.getMutualFriends(user.getId(), user2.getId()), friendsTest);
+    }
+
+    @Test
+    void getUserId() { // Запрос пользователя по id
+        inMemoryUserStorage.create(user);
+
+        Assertions.assertEquals(inMemoryUserStorage.getByIdUser(1L), user);
+    }
 }
