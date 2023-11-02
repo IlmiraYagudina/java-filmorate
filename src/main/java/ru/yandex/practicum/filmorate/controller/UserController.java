@@ -30,7 +30,6 @@ public class UserController {
      *
      * @param user информация о пользователе.
      */
-
     @ResponseBody
     @PostMapping
     public User create(@Valid @RequestBody User user) {
@@ -42,7 +41,6 @@ public class UserController {
      *
      * @return users возвращает коллекцию пользователей.
      */
-
     @ResponseBody
     @GetMapping
     public Collection<User> getUsers() {
@@ -54,12 +52,12 @@ public class UserController {
      *
      * @param user информация о пользователе.
      */
-
     @ResponseBody
     @PutMapping
     public User update(@Valid @RequestBody User user) {
         return userService.getUserStorage().put(user);
     }
+
     /**
      * Добавляет пользователя в друзья.
      *
@@ -70,6 +68,7 @@ public class UserController {
     public void addFriend(@PathVariable Long id, @PathVariable Long friendId) {
         userService.addFriends(id, friendId);
     }
+
     /**
      * Удаляет пользователя из друзей.
      *
@@ -114,10 +113,4 @@ public class UserController {
     public List<User> getMutualFriends(@PathVariable Long id, @PathVariable Long otherId) {
         return userService.getMutualFriends(id, otherId);
     }
-
-    /**
-     * Запрашивает коллекцию пользователей.
-     *
-     * @return возвращает коллекцию пользователей.
-     */
 }

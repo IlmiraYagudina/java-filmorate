@@ -25,7 +25,6 @@ public class UserService {
      */
     private final UserStorage userStorage;
 
-
     /**
      * Добавление в друзья.
      *

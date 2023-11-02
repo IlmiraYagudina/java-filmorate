@@ -81,6 +81,5 @@ public class FilmControllerTest {
         Assertions.assertThrows(ValidationException.class, () -> inMemoryFilmStorage.addFilms(film));
         Assertions.assertEquals(0, inMemoryFilmStorage.getFilm().size());
     }
-
 }
 

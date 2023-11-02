@@ -23,6 +23,7 @@ public class InMemoryUserStorage implements UserStorage {
      * Поле хранилище пользователей
      */
     private final Map<Long, User> users = new HashMap<>();
+
     /**
      * Поле счетчик идентификаторов пользователей
      */

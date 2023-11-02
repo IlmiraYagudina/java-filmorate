@@ -62,11 +62,9 @@ public class FilmService {
         if (userStorage.getByIdUser(userId) == null) {
             throw new NotFoundException(String.format("Пользователь с id %s не существует", userId));
         }
-
         if (filmStorage.getByIdFilm(filmId) == null) {
             throw new NotFoundException(String.format("Фильм с id %s не существует", filmId));
         }
-
         filmStorage.getByIdFilm(filmId).deleteLike(userId);
         log.info("Пользователь с id {} удалил лайк у фильма с id{}", userId, filmId);
     }
@@ -76,7 +74,6 @@ public class FilmService {
      *
      * @param topNumber количество, из которого необходимо составить топ(по умолчанию топ 10).
      */
-
     public List<Film> getPopularFilm(Long topNumber) {
         return filmStorage.getFilm().stream().sorted(Comparator.comparingInt(Film::getLike).reversed()).limit(topNumber).collect(Collectors.toList());
     }

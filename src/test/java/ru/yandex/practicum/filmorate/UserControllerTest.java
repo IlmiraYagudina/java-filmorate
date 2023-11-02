@@ -73,6 +73,7 @@ public class UserControllerTest {
 
         Assertions.assertThrows(ValidationException.class, () -> inMemoryUserStorage.create(user));
     }
+
     @Test
     void addFriend() { // добавить друга
         Set<Long> friendsTest = new HashSet<>();
