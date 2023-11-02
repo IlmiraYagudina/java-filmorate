@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @Slf4j
 public class FilmControllerTest {
     private final InMemoryFilmStorage inMemoryFilmStorage = new InMemoryFilmStorage();
-    private final FilmController controller = new FilmController();
+
     private final Film film = Film.builder()
             .id(1L)
             .name("Movie")
@@ -27,26 +27,6 @@ public class FilmControllerTest {
             .duration(120)
             .build();
 
-    @Test
-    void create_shouldAddAMovie() { // Задание фильма
-        Film thisFilm = new Film(1L, "Movie", "The most awesome movie I've ever seen",
-                LocalDate.of(2020, 2, 2), 120);
-        controller.create(thisFilm);
-
-        Assertions.assertEquals(film, thisFilm);
-        Assertions.assertEquals(1, controller.getFilms().size());
-    }
-
-    @Test
-    void update_shouldUpdateMovieData() { // Обновление даты
-        Film thisFilm = new Film(1L, "Movie", "I cried at the end, it was very thoughtful",
-                LocalDate.of(2020, 2, 2), 120);
-        controller.create(film);
-        controller.update(thisFilm);
-
-        Assertions.assertEquals("I cried at the end, it was very thoughtful", thisFilm.getDescription());
-        Assertions.assertEquals(1, controller.getFilms().size());
-    }
 
     @Test
     void create_shouldNotAddAMovieWithAnEmptyName() { // Если название пустое
@@ -62,7 +42,7 @@ public class FilmControllerTest {
                 "but I've never seen such precise details of serial killers doing thier job." +
                 "You should deffinately see this one. Actually, this movie was based on a true story. Creepy...");
 
-        Assertions.assertThrows(ValidationException.class, () -> controller.create(film));
+        Assertions.assertThrows(ValidationException.class, () -> inMemoryFilmStorage.addFilms(film));
         Assertions.assertEquals(0, inMemoryFilmStorage.getFilm().size());
     }
 

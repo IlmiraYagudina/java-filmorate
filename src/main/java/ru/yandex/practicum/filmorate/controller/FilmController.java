@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,26 +10,25 @@ import ru.yandex.practicum.filmorate.model.Film;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Класс-контроллер для оценки фильмов и реализации API со свойством <b>filmService</b>.
+ */
 @Slf4j
 @RestController
 @RequestMapping("/films")
+@AllArgsConstructor
 public class FilmController {
     @Autowired
     private final FilmService filmService;
-
-    public FilmController() {
-        filmService = null;
-    }
 
     /**
      * Добавление фильма.
      *
      * @param film информация о фильме.
      */
-
     @ResponseBody
     @PostMapping
-    public Film create(@Valid @RequestBody Film film) {
+    public Film addFilms(@Valid @RequestBody Film film) {
         return filmService.addFilms(film);
     }
 
@@ -37,10 +37,9 @@ public class FilmController {
      *
      * @return films возвращает коллекцию фильмов.
      */
-
     @ResponseBody
     @GetMapping
-    public Collection<Film> getFilms() {
+    public Collection<Film> getFilm() {
         return filmService.getFilm();
     }
 
@@ -49,11 +48,9 @@ public class FilmController {
      *
      * @param film информация о фильме.
      */
-
     @ResponseBody
     @PutMapping
-    public Film
-    update(@Valid @RequestBody Film film) {
+    public Film put(@Valid @RequestBody Film film) {
         return filmService.put(film);
     }
 
@@ -99,15 +96,5 @@ public class FilmController {
     @GetMapping("popular")
     public List<Film> getPopularFilm(@PathVariable @RequestParam(defaultValue = "10") Integer count) {
         return filmService.getPopularFilm(Long.valueOf(count));
-    }
-
-    /**
-     * Запрос фильмов
-     *
-     * @return возвращает коллекцию фильмов
-     */
-    @GetMapping
-    public Collection<Film> getFilm() {
-        return filmService.getFilm();
     }
 }

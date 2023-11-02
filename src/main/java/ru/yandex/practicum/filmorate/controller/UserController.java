@@ -43,7 +43,7 @@ public class UserController {
      */
     @ResponseBody
     @GetMapping
-    public Collection<User> getUsers() {
+    public Collection<User> getUser() {
         return userService.getUserStorage().getUser();
     }
 
@@ -54,7 +54,7 @@ public class UserController {
      */
     @ResponseBody
     @PutMapping
-    public User update(@Valid @RequestBody User user) {
+    public User put(@Valid @RequestBody User user) {
         return userService.getUserStorage().put(user);
     }
 
