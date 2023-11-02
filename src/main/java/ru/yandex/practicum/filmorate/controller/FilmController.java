@@ -78,6 +78,7 @@ public class FilmController {
     public void deleteLikeFilm(@PathVariable Long id, @PathVariable Long userId) {
         filmService.deleteLike(userId, id);
     }
+
     /**
      * Запрос фильма по id
      *
@@ -99,6 +100,7 @@ public class FilmController {
     public List<Film> getPopularFilm(@PathVariable @RequestParam(defaultValue = "10") Integer count) {
         return filmService.getPopularFilm(Long.valueOf(count));
     }
+
     /**
      * Запрос фильмов
      *
