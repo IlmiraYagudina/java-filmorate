@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import ru.yandex.practicum.filmorate.exception.Validation;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
@@ -19,29 +20,10 @@ public class UserControllerTest {
     private final UserStorage inMemoryUserStorage = new InMemoryUserStorage();
     private final UserService userService = new UserService(inMemoryUserStorage);
 
-    private final User user = User.builder()
-            .id(1L)
-            .email("yandex@yandex.ru")
-            .login("user")
-            .name("User")
-            .birthday(LocalDate.of(1990, 1, 1))
-            .build();
+    private final User user = new User(1L, "yandex1@yandex.ru", "user", "User1", LocalDate.of(1996, 1, 1));
+    private final User user2 = new User(1L, "yandex2@yandex.ru", "user", "User2", LocalDate.of(1996, 1, 1));
 
-    private final User user2 = User.builder()
-            .id(2L)
-            .email("yandex@yandex.ru")
-            .login("user")
-            .name("User2")
-            .birthday(LocalDate.of(1990, 1, 1))
-            .build();
-
-    private final User user3 = User.builder()
-            .id(1L)
-            .email("yandex@yandex.ru")
-            .login("user")
-            .name("User3")
-            .birthday(LocalDate.of(1990, 1, 1))
-            .build();
+    private final User user3 = new User(1L, "yandex3@yandex.ru", "user", "User3", LocalDate.of(1996, 1, 1));
 
 
     @Test
@@ -65,6 +47,7 @@ public class UserControllerTest {
         user.setLogin("");
 
         Assertions.assertThrows(ValidationException.class, () -> inMemoryUserStorage.create(user));
+        Assertions.assertEquals(0, inMemoryUserStorage.getUser().size());
     }
 
     @Test
@@ -72,6 +55,14 @@ public class UserControllerTest {
         user.setBirthday(LocalDate.of(2024, 6, 28));
 
         Assertions.assertThrows(ValidationException.class, () -> inMemoryUserStorage.create(user));
+    }
+
+    @Test
+    void dateOfBirthFromToDay() { // Если др сегодня, то все ок
+        user.setBirthday(LocalDate.now());
+        Validation.userValidation(user);
+
+        Assertions.assertEquals(user.getBirthday(), LocalDate.now());
     }
 
     @Test

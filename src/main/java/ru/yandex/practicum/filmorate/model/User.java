@@ -14,20 +14,17 @@ import java.util.Set;
  * Класс-модель для создания пользователя со свойствами <b>id<b/>, <b>email<b/>, <b>login<b/>, <b>name<b/>, <b>birthday<b/>, <b>friends<b/>.
  */
 @Data
-@AllArgsConstructor
-@Builder
 public class User {
-    @PositiveOrZero
     private Long id; // Идентификатор
     @Email
     @NotBlank
     @NotNull
     private String email; // Электронная почта
-    @NotNull
     @NotEmpty
     @NotBlank
     private String login; // Логин пользователя
     private String name; // Имя для отображения
+    @NotNull
     @PastOrPresent
     private LocalDate birthday; // Дата рождения
 

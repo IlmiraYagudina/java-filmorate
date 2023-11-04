@@ -74,7 +74,7 @@ public class FilmService {
      *
      * @param topNumber количество, из которого необходимо составить топ(по умолчанию топ 10).
      */
-    public List<Film> getPopularFilm(Long topNumber) {
+    public List<Film> getPopularFilm(int topNumber) {
         return filmStorage.getFilm().stream().sorted(Comparator.comparingInt(Film::getLike).reversed()).limit(topNumber).collect(Collectors.toList());
     }
 

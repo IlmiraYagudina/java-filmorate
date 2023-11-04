@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.controller.FilmController;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.film.InMemoryFilmStorage;
@@ -52,6 +51,20 @@ public class FilmControllerTest {
 
         Assertions.assertThrows(ValidationException.class, () -> inMemoryFilmStorage.addFilms(film));
         Assertions.assertEquals(0, inMemoryFilmStorage.getFilm().size());
+    }
+
+    @Test
+    void description0() { // Если описание 0
+        film.setDescription("");
+
+        Assertions.assertEquals(film.getDescription(), "");
+    }
+
+    @Test
+    void filmDuration() { // Продолжительность 0
+        film.setDuration(0);
+
+        Assertions.assertEquals(film.getDuration(), 0);
     }
 
     @Test

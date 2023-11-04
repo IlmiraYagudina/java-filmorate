@@ -1,12 +1,13 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.service.FilmService;
 import ru.yandex.practicum.filmorate.model.Film;
+
+import jakarta.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 
@@ -95,6 +96,6 @@ public class FilmController {
      */
     @GetMapping("popular")
     public List<Film> getPopularFilm(@PathVariable @RequestParam(defaultValue = "10") Integer count) {
-        return filmService.getPopularFilm(Long.valueOf(count));
+        return filmService.getPopularFilm(count);
     }
 }

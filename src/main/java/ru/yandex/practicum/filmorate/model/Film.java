@@ -1,9 +1,6 @@
 package ru.yandex.practicum.filmorate.model;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +14,6 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public class Film {
-    @Positive
     private Long id; // Id фильма
     @NotBlank
     private String name; // Название фильма
@@ -25,8 +21,8 @@ public class Film {
     @Size(max = 200)
     private String description; // Описание фильма
     private LocalDate releaseDate; // Дата релиза
-    @Min(1)
-    private long duration; // Продолжительность фильма
+    @PositiveOrZero
+    private int duration; // Продолжительность фильма
 
     /**
      * Поле с перечислением пользователей поставивших лайки

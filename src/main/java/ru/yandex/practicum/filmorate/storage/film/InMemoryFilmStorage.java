@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.storage.film;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,7 +54,7 @@ public class  InMemoryFilmStorage implements FilmStorage {
      * @throws NotFoundException генерирует 404 ошибку в случае если фильма не существует.
      */
     @PutMapping
-    public Film put(@RequestBody Film film) {
+    public Film put(@Valid @RequestBody Film film) {
         Long filmId = film.getId();
 
         Validation.filmValidation(film);

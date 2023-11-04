@@ -30,8 +30,7 @@ public class Validation {
             log.debug("Длина описание фильма > 200");
             throw new ValidationException(String.format("Description increases 200 symbols or empty"));
         }
-        if (film.getReleaseDate() == null ||
-                film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
+        if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
             log.debug("Дата релиза < 28.12.1895");
             throw new ValidationException(String.format("Incorrect release date"));
         }
@@ -49,7 +48,16 @@ public class Validation {
      * Проверка пользователя на корректность.
      */
     public static void userValidation(User user) {
+        char[] nameChar = user.getLogin().toCharArray();
+
+        for (char c : nameChar) {
+            if (c == ' ') { // Для наглядности вставим пробел между индексами
+                throw new ValidationException("Логин содержит пробел");
+            }
+        }
+
         if (user.getBirthday().isAfter(LocalDate.now()) || user.getBirthday() == null) {
+            log.debug("Не верное День Рождения");
             throw new ValidationException("Incorrect user's birthday with identifier '" + user.getId() + "'");
         }
         if (user.getEmail() == null || user.getEmail().isBlank() || !user.getEmail().contains("@")) {
@@ -57,14 +65,11 @@ public class Validation {
         }
         if (user.getName() == null || user.getName().isBlank()) {
             user.setName(user.getLogin());
-            log.info("User's name was set as '{}' and user identifier was set as '{}'", user.getId(), user.getName());
-        }
-        if (user.getId() == 0 || user.getId() < 0) {
-            Long id = (long) user.getId();
-            user.setId(++id);
-            log.info("Incorrect user identifier was set as '{}'", user.getId());
+            log.debug("User's name was set as '{}' and user identifier was set as '{}'", user.getId(), user.getName());
         }
         if (user.getLogin().isBlank() || user.getLogin().isEmpty()) {
+            log.debug("У пользователя нет логина");
+            user.setName(user.getLogin());
             throw new ValidationException("Incorrect login with user's identifier '" + user.getId() + "'");
         }
     }
