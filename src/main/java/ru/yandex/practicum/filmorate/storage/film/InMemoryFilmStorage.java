@@ -24,7 +24,7 @@ public class  InMemoryFilmStorage implements FilmStorage {
     /**
      * Поле хранилище фильмов
      */
-    private final Map<Integer, Film> films = new HashMap<>();
+    private final Map<Long, Film> films = new HashMap<>();
     /**
      * Поле счетчик идентификаторов фильмов
      */
@@ -41,7 +41,7 @@ public class  InMemoryFilmStorage implements FilmStorage {
         Validation.filmValidation(film);
         log.debug("Фильм добавлен");
         film.setId(id);
-        films.put(Math.toIntExact(film.getId()), film);
+        films.put(film.getId(), film);
         id++;
         return film;
     }
@@ -60,7 +60,7 @@ public class  InMemoryFilmStorage implements FilmStorage {
         Validation.filmValidation(film);
         if (films.containsKey(filmId)) {
             log.debug("Фильм обновлен");
-            films.put(Math.toIntExact(filmId), film);
+            films.put(filmId, film);
         } else {
             log.debug(String.format("Фильм с id %s не существует", filmId));
             throw new NotFoundException("Данного фильма нет в базе данных");
