@@ -3,10 +3,6 @@ package ru.yandex.practicum.filmorate.storage.film;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.exception.Validation;
@@ -36,13 +32,13 @@ public class InMemoryFilmStorage implements FilmStorage {
      * @param film информация о фильме.
      * @return возвращает созданный фильм
      */
-    @PostMapping
-    public Film addFilms(@Valid @RequestBody Film film) {
+
+    public Film addFilms(@Valid Film film) {
         Validation.filmValidation(film);
         log.debug("Фильм добавлен");
         film.setId(id);
         films.put(film.getId(), film);
-//        id++;
+        id++;
         return film;
     }
 
@@ -53,8 +49,7 @@ public class InMemoryFilmStorage implements FilmStorage {
      * @return возвращает обновленный фильм
      * @throws NotFoundException генерирует 404 ошибку в случае если фильма не существует.
      */
-    @PutMapping
-    public Film put(@Valid @RequestBody Film film) {
+    public Film put(@Valid Film film) {
         Long filmId = film.getId();
         Validation.filmValidation(film);
         if (films.containsKey(filmId)) {
@@ -72,7 +67,6 @@ public class InMemoryFilmStorage implements FilmStorage {
      *
      * @return films возвращает коллекцию фильмов.
      */
-    @GetMapping
     public Collection<Film> getFilm() {
         log.debug("Запрошен список фильмов, их количество: {} ", films.size());
         return films.values();
@@ -85,7 +79,6 @@ public class InMemoryFilmStorage implements FilmStorage {
      * @return возвращает фильм с указанным id
      * @throws NotFoundException генерирует 404 ошибку в случае если фильма не существует.
      */
-    @GetMapping()
     public Film getByIdFilm(Long id) {
         if (films.containsKey(id)) {
             log.debug("Запрошен фильм с id : {} ", id);

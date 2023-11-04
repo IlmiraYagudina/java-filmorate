@@ -2,7 +2,6 @@ package ru.yandex.practicum.filmorate.storage.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
@@ -36,7 +35,7 @@ public class InMemoryUserStorage implements UserStorage {
      * @return возвращает созданного пользователя
      * @throws NotFoundException генерирует 404 ошибку в случае если пользователь с электронной почтой уже зарегистрирован.
      */
-    public User create(@Valid @RequestBody User user) {
+    public User create(@Valid User user) {
         Validation.userValidation(user);
         if (users.containsKey(user.getId())) {
             log.debug("Email уже существует");
@@ -57,7 +56,7 @@ public class InMemoryUserStorage implements UserStorage {
      * @return возвращает обновленного пользователя
      * @throws NotFoundException генерирует 404 ошибку в случае если пользователя не существует.
      */
-    public User put(@Valid @RequestBody User user) {
+    public User put(@Valid User user) {
         Long userId = user.getId();
 
         Validation.userValidation(user);
