@@ -10,7 +10,9 @@ import ru.yandex.practicum.filmorate.service.UserService;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @SpringBootTest
@@ -76,5 +78,38 @@ public class UserControllerTest {
         inMemoryUserStorage.create(user);
 
         Assertions.assertEquals(inMemoryUserStorage.getByIdUser(1L), user);
+    }
+
+    @Test
+    void loginContainSpace() { // Если логин содержит пробел
+        user.setLogin("And ex");
+
+        Assertions.assertThrows(ValidationException.class, () -> inMemoryUserStorage.create(user));
+        Assertions.assertEquals(0, inMemoryUserStorage.getUser().size());
+    }
+
+    @Test
+    void loginSpace() { // Если логин состоит из пробела
+        user.setLogin(" ");
+
+        Assertions.assertThrows(ValidationException.class, () -> inMemoryUserStorage.create(user));
+        Assertions.assertEquals(0, inMemoryUserStorage.getUser().size());
+    }
+
+    @Test
+    void emptyName() { // Если имя пустое, имя = логин
+        user.setName(" ");
+        Validation.userValidation(user);
+
+        Assertions.assertEquals(user.getName(), user.getLogin());
+    }
+
+    @Test
+    void addFriend() { // добавить друга
+        Set<Long> friendsTest = new HashSet<>();
+        friendsTest.add(2L);
+        user.addFriend(2L);
+
+        Assertions.assertEquals(user.getFriends(), friendsTest);
     }
 }

@@ -51,8 +51,7 @@ public class User {
      * @param id id пользователя добавляемого в друзья.
      */
     public void addFriend(Long id) {
-        friends.add(id);
-    }
+        friends.add(id);}
 
     /**
      * Метод удаление друга

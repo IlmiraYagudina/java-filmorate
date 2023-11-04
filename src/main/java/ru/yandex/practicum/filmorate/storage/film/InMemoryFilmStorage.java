@@ -20,7 +20,7 @@ import java.util.Map;
  */
 @Component
 @Slf4j
-public class  InMemoryFilmStorage implements FilmStorage {
+public class InMemoryFilmStorage implements FilmStorage {
     /**
      * Поле хранилище фильмов
      */
@@ -37,7 +37,7 @@ public class  InMemoryFilmStorage implements FilmStorage {
      * @return возвращает созданный фильм
      */
     @PostMapping
-    public Film addFilms(@RequestBody Film film) {
+    public Film addFilms(@Valid @RequestBody Film film) {
         Validation.filmValidation(film);
         log.debug("Фильм добавлен");
         film.setId(id);
@@ -56,7 +56,6 @@ public class  InMemoryFilmStorage implements FilmStorage {
     @PutMapping
     public Film put(@Valid @RequestBody Film film) {
         Long filmId = film.getId();
-
         Validation.filmValidation(film);
         if (films.containsKey(filmId)) {
             log.debug("Фильм обновлен");
