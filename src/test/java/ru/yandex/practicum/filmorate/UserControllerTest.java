@@ -69,7 +69,7 @@ public class UserControllerTest {
     void addFriend() { // добавить друга
         Set<Long> friendsTest = new HashSet<>();
         friendsTest.add(2L);
-        user.addFriend(2L);
+        user.addFriend(3L);
 
         Assertions.assertEquals(user.getFriends(), friendsTest);
     }
