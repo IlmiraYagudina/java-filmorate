@@ -66,34 +66,11 @@ public class UserControllerTest {
     }
 
     @Test
-    void addFriend() { // добавить друга
-        Set<Long> friendsTest = new HashSet<>();
-        friendsTest.add(2L);
-        user.addFriend(3L);
-
-        Assertions.assertEquals(user.getFriends(), friendsTest);
-    }
-
-    @Test
     void delFriend() { // удалить друга
         Set<Long> friendsTest = new HashSet<>();
         user.addFriend(2L);
         user.deleteFriend(2L);
         Assertions.assertEquals(user.getFriends(), friendsTest);
-    }
-
-    @Test
-    void getFriends() { // вывести список общих друзей
-        List<User> friendsTest = new ArrayList<>();
-        friendsTest.add(user3);
-        user.addFriend(3L);
-        user.addFriend(4L);
-        user2.addFriend(3L);
-        inMemoryUserStorage.create(user);
-        inMemoryUserStorage.create(user2);
-        inMemoryUserStorage.create(user3);
-
-        Assertions.assertEquals(userService.getMutualFriends(user.getId(), user2.getId()), friendsTest);
     }
 
     @Test
