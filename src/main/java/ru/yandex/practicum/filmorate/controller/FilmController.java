@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Класс-контроллер для оценки фильмов и реализации API со свойством <b>filmService</b>.
  */
-@Slf4j
+
 @RestController
 @RequestMapping("/films")
 @AllArgsConstructor
@@ -38,7 +38,6 @@ public class FilmController {
      *
      * @return films возвращает коллекцию фильмов.
      */
-    @ResponseBody
     @GetMapping
     public Collection<Film> getFilm() {
         return filmService.getFilm();
@@ -49,7 +48,6 @@ public class FilmController {
      *
      * @param film информация о фильме.
      */
-    @ResponseBody
     @PutMapping
     public Film put(@Valid @RequestBody Film film) {
         return filmService.put(film);
