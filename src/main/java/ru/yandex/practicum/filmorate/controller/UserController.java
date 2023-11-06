@@ -31,7 +31,6 @@ public class UserController {
     @ResponseBody
     @PostMapping
     public User create(@Valid @RequestBody User user) {
-
         return userService.create(user);
     }
 

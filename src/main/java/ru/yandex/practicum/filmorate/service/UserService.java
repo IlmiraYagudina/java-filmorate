@@ -115,7 +115,7 @@ public class UserService {
         return userStorage;
     }
 
-    public User create(@Valid @RequestBody User user) {
+    public User create(@Valid User user) {
         return user;
     }
 }
