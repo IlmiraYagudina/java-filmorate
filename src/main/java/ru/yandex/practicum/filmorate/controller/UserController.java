@@ -32,7 +32,7 @@ public class UserController {
     @PostMapping
     public User create(@Valid @RequestBody User user) {
 
-        return create(user);
+        return userService.getUserStorage().create(user);
     }
 
     /**
@@ -42,7 +42,7 @@ public class UserController {
      */
     @GetMapping
     public Collection<User> getUser() {
-        return getUser();
+        return userService.getUserStorage().getUser();
     }
 
     /**
