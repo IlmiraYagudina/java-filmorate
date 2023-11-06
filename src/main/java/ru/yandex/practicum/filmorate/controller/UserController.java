@@ -33,8 +33,8 @@ public class UserController {
     @ResponseBody
     @PostMapping
     public User create(@Valid @RequestBody User user) {
-        Validation.userValidation(user);
-        return user;
+
+        return userService.create(user);
     }
 
     /**
