@@ -115,6 +115,6 @@ public class UserService {
     }
 
     public User create(@Valid User user) {
-        return user;
+        return userStorage.create(user);
     }
 }
