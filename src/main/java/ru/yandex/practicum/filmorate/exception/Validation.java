@@ -25,22 +25,23 @@ public class Validation {
      */
     public static void filmValidation(Film film) {
         String str = film.getDescription();
+        final LocalDate const_data = LocalDate.of(1895, 12, 28);
         char[] strToArray = str.toCharArray(); // Преобразуем строку str в массив символов (char)
         if (strToArray.length > 200 || strToArray.length == 0) {
             log.debug("Длина описание фильма > 200");
-            throw new ValidationException(String.format("Description increases 200 symbols or empty"));
+            throw new ValidationException("Description increases 200 symbols or empty");
         }
-        if (film.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
+        if (film.getReleaseDate().isBefore(const_data)) {
             log.debug("Дата релиза < 28.12.1895");
-            throw new ValidationException(String.format("Incorrect release date"));
+            throw new ValidationException("Incorrect release date");
         }
         if (film.getName().isEmpty() || film.getName().isBlank() || film.getName() == null) {
             log.debug("Название фильма пустое");
-            throw new ValidationException(String.format("Attempt to set an empty movie name"));
+            throw new ValidationException("Attempt to set an empty movie name");
         }
         if (film.getDuration() < 0) {
             log.debug("Длительность меньше 0");
-            throw new ValidationException(String.format("Attempt to set duration less than zero"));
+            throw new ValidationException("Attempt to set duration less than zero");
         }
     }
 
@@ -57,7 +58,7 @@ public class Validation {
         }
 
         if (user.getBirthday().isAfter(LocalDate.now()) || user.getBirthday() == null) {
-            log.debug("Не верное День Рождения");
+            log.debug("Неверный  День Рождения");
             throw new ValidationException("Incorrect user's birthday with identifier '" + user.getId() + "'");
         }
         if (user.getEmail() == null || user.getEmail().isBlank() || !user.getEmail().contains("@")) {
