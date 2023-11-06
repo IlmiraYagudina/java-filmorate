@@ -41,7 +41,7 @@ public class UserController {
      */
     @GetMapping
     public Collection<User> getUser() {
-        return userService.getUserStorage().getUser();
+        return userService.getUser();
     }
 
     /**

@@ -8,10 +8,7 @@ import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -116,5 +113,9 @@ public class UserService {
 
     public User create(@Valid User user) {
         return userStorage.create(user);
+    }
+
+    public Collection<User> getUser() {
+        return userStorage.getUser();
     }
 }
