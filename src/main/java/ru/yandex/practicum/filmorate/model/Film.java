@@ -32,6 +32,17 @@ public class Film {
     private Set<Long> like = new HashSet<>();
 
     /**
+     * Поле с перечислением жанров фильма
+     */
+    private HashSet<Genre> genres;
+
+    /**
+     * Поле с указанием рейтинга фильма
+     */
+    @NotNull
+    private Mpa mpa;
+
+    /**
      * Конструктор создание нового объекта фильма.
      *
      * @see Film#Film(Long, String, String, LocalDate, int)

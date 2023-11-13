@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Класс-хранилище реализующий интерфейс {@link UserStorage} для хранения и обновления пользователей со свойствами <b>users<b/> и <b>id<b/>
  */
-@Component
+@Component("InMemoryUserStorage")
 @Slf4j
 public class InMemoryUserStorage implements UserStorage {
     /**

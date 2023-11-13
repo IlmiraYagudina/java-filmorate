@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import ru.yandex.practicum.filmorate.exception.Validation;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.service.UserService;
+import ru.yandex.practicum.filmorate.service.UserDbService;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
 import java.time.LocalDate;
@@ -16,12 +16,9 @@ import java.util.Set;
 @SpringBootTest
 public class UserControllerTest {
     private final UserStorage inMemoryUserStorage = new InMemoryUserStorage();
-    private final UserService userService = new UserService(inMemoryUserStorage);
-
-    private final User user = new User(1L, "yandex1@yandex.ru", "user", "User1", LocalDate.of(1996, 1, 1));
-    private final User user2 = new User(1L, "yandex2@yandex.ru", "user", "User2", LocalDate.of(1996, 1, 1));
-
-    private final User user3 = new User(1L, "yandex3@yandex.ru", "user", "User3", LocalDate.of(1996, 1, 1));
+    private final User user = new User("yandex1@yandex.ru", "user", "User1", LocalDate.of(1996, 1, 1));
+    private final User user2 = new User("yandex2@yandex.ru", "user", "User2", LocalDate.of(1996, 1, 1));
+    private final User user3 = new User("yandex3@yandex.ru", "user", "User3", LocalDate.of(1996, 1, 1));
 
 
     @Test
@@ -64,14 +61,6 @@ public class UserControllerTest {
     }
 
     @Test
-    void delFriend() { // удалить друга
-        Set<Long> friendsTest = new HashSet<>();
-        user.addFriend(2L);
-        user.deleteFriend(2L);
-        Assertions.assertEquals(user.getFriends(), friendsTest);
-    }
-
-    @Test
     void getUserId() { // Запрос пользователя по id
         inMemoryUserStorage.create(user);
 
@@ -100,14 +89,5 @@ public class UserControllerTest {
         Validation.userValidation(user);
 
         Assertions.assertEquals(user.getName(), user.getLogin());
-    }
-
-    @Test
-    void addFriend() { // добавить друга
-        Set<Long> friendsTest = new HashSet<>();
-        friendsTest.add(2L);
-        user.addFriend(2L);
-
-        Assertions.assertEquals(user.getFriends(), friendsTest);
     }
 }

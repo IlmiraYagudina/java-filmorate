@@ -3,7 +3,7 @@ package ru.yandex.practicum.filmorate.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.service.FilmService;
+import ru.yandex.practicum.filmorate.service.FilmDbService;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import jakarta.validation.Valid;
@@ -13,13 +13,12 @@ import java.util.List;
 /**
  * Класс-контроллер для оценки фильмов и реализации API со свойством <b>filmService</b>.
  */
-
 @RestController
 @RequestMapping("/films")
 @AllArgsConstructor
 public class FilmController {
     @Autowired
-    private final FilmService filmService;
+    private final FilmDbService filmService;
 
     /**
      * Добавление фильма.
@@ -58,7 +57,7 @@ public class FilmController {
      * @param id     id фильма.
      * @param userId id поставившего лайк.
      */
-    @PutMapping("{id}/like/{userId}")
+    @PutMapping("{id}/GenreDao/{userId}")
     public void likeFilm(@PathVariable Long id, @PathVariable Long userId) {
         filmService.addLike(userId, id);
     }
@@ -69,7 +68,7 @@ public class FilmController {
      * @param id     id фильма.
      * @param userId id удалившего свой лайк.
      */
-    @DeleteMapping("{id}/like/{userId}")
+    @DeleteMapping("{id}/GenreDao/{userId}")
     public void deleteLikeFilm(@PathVariable Long id, @PathVariable Long userId) {
         filmService.deleteLike(userId, id);
     }
