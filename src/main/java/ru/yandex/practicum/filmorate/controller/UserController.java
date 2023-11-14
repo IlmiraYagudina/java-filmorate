@@ -1,50 +1,37 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.exception.Validation;
-import ru.yandex.practicum.filmorate.exception.ValidationException;
-
-
 import ru.yandex.practicum.filmorate.model.User;
-import java.util.ArrayList;
-import java.util.HashMap;
+import ru.yandex.practicum.filmorate.service.UserService;
+
+import jakarta.validation.Valid;
+import java.util.Collection;
 import java.util.List;
 
 @Slf4j
-
+@AllArgsConstructor
 @RequestMapping("/users")
 @RestController
 public class UserController {
-    private final HashMap<Integer, User> users = new HashMap<>();
-    private int id = 1;
+    /**
+     * Поле сервис
+     */
+    @Autowired
+    private final UserService userService;
+
 
     /**
      * Добавление пользователя.
      *
      * @param user информация о пользователе.
      */
-
     @ResponseBody
     @PostMapping
     public User create(@Valid @RequestBody User user) {
-        Validation.userValidation(user);
-//        if (users.containsKey(user.getId())) {
-//            log.debug("Email already exists");
-//            throw new ValidationException(String.format("Email %s already exists.", user.getEmail()));
-//        }
-//        log.debug("The user '{}' has been saved with the identifier '{}'", user.getEmail(), user.getId());
-//        user.setId(id);
-//        id++;
-//        users.put(user.getId(), user);
-//        return user;
-        users.put(user.getId(), user);
-        log.info("The user '{}' has been saved with the identifier '{}'", user.getEmail(), user.getId());
-        user.setId(id);
-        id++;
-//        users.put(user.getId(), user);
-        return user;
+        return userService.create(user);
     }
 
     /**
@@ -52,12 +39,9 @@ public class UserController {
      *
      * @return users возвращает коллекцию пользователей.
      */
-
-    @ResponseBody
     @GetMapping
-    public List<User> getUsers() {
-        log.info("The number of users: '{}'", users.size());
-        return new ArrayList<>(users.values());
+    public Collection<User> getUser() {
+        return userService.getUser();
     }
 
     /**
@@ -65,17 +49,65 @@ public class UserController {
      *
      * @param user информация о пользователе.
      */
-
     @ResponseBody
     @PutMapping
-    public User update(@Valid @RequestBody User user) {
-        Validation.userValidation(user);
-        if (users.containsKey(user.getId())) {
-            users.put(user.getId(), user);
-            log.info("'{}' info with identifier '{}' was updated", user.getLogin(), user.getId());
-        } else {
-            throw new ValidationException("Attempt to update non-existing user");
-        }
-        return user;
+    public User put(@Valid @RequestBody User user) {
+        return userService.getUserStorage().put(user);
+    }
+
+    /**
+     * Добавляет пользователя в друзья.
+     *
+     * @param id       id пользователя кто добавляет.
+     * @param friendId id пользователя кого добавляют.
+     */
+    @PutMapping("{id}/friends/{friendId}")
+    public void addFriend(@PathVariable Long id, @PathVariable Long friendId) {
+        userService.addFriends(id, friendId);
+    }
+
+    /**
+     * Удаляет пользователя из друзей.
+     *
+     * @param id       id пользователя кто удаляет.
+     * @param friendId id пользователя кого удаляют.
+     */
+    @DeleteMapping("{id}/friends/{friendId}")
+    public void deleteFriend(@PathVariable Long id, @PathVariable Long friendId) {
+        userService.deleteFriends(id, friendId);
+    }
+
+    /**
+     * Запрашивает всех друзей пользователя.
+     *
+     * @param id id пользователя чьих друзей запрашиваем.
+     * @return возвращает список друзей пользователя.
+     */
+    @GetMapping("{id}/friends")
+    public List<User> getFriend(@PathVariable Long id) {
+        return userService.getFriends(id);
+    }
+
+    /**
+     * Запрашивает пользователя по id.
+     *
+     * @param id id пользователя.
+     * @return возвращает пользователя c указанным id.
+     */
+    @GetMapping("{id}")
+    public User getUser(@PathVariable Long id) {
+        return userService.getUserStorage().getByIdUser(id);
+    }
+
+    /**
+     * Запрашивает общих друзей у двух пользователей.
+     *
+     * @param id      id пользователя.
+     * @param otherId id второго пользователя.
+     * @return возвращает список пользователей, являющихся общими друзьями у пользователей.
+     */
+    @GetMapping("{id}/friends/common/{otherId}")
+    public List<User> getMutualFriends(@PathVariable Long id, @PathVariable Long otherId) {
+        return userService.getMutualFriends(id, otherId);
     }
 }
