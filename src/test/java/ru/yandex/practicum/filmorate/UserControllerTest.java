@@ -6,12 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import ru.yandex.practicum.filmorate.exception.Validation;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.service.UserDbService;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 import ru.yandex.practicum.filmorate.storage.user.InMemoryUserStorage;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @SpringBootTest
 public class UserControllerTest {
