@@ -23,6 +23,7 @@ public class InMemoryFilmStorage implements FilmStorage {
      * Поле хранилище фильмов
      */
     private final Map<Long, Film> films = new HashMap<>();
+
     /**
      * Поле счетчик идентификаторов фильмов
      */

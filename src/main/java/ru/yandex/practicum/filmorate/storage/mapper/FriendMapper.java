@@ -10,7 +10,6 @@ import java.sql.SQLException;
  * Маппер для реализации сущности Friend из данных полученных в БД
  */
 public class FriendMapper implements RowMapper<Friend> {
-
     /**
      * Метод преобразования данных из БД в сущность
      *

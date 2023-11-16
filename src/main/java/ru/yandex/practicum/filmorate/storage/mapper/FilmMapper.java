@@ -11,7 +11,6 @@ import java.sql.SQLException;
  * Маппер для реализации сущности Film из данных полученных в БД
  */
 public class FilmMapper implements RowMapper<Film> {
-
     /**
      * Метод преобразования данных из БД в сущность Film
      *

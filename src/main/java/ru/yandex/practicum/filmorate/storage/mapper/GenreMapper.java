@@ -10,7 +10,6 @@ import java.sql.SQLException;
  * Маппер для реализации сущности Genre из данных полученных в БД
  */
 public class GenreMapper implements RowMapper<Genre> {
-
     /**
      * Метод преобразования данных из БД в сущность
      *

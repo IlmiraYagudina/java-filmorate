@@ -10,7 +10,6 @@ import java.sql.SQLException;
  * Маппер для реализации сущности Mpa из данных полученных в БД
  */
 public class MpaMapper implements RowMapper<Mpa> {
-
     /**
      * Метод преобразования данных из БД в сущность
      *

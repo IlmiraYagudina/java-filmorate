@@ -9,25 +9,24 @@ import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 
-
 @RequestMapping("/users")
 @RestController
 public class UserController {
     /**
      * Поле сервис
      */
-
     private final UserDbService userService;
+
     @Autowired
     public UserController(UserDbService userService){
         this.userService = userService;
     }
+
     /**
      * Добавление пользователя.
      *
      * @param user информация о пользователе.
      */
-
     @PostMapping
     public User create(@Valid @RequestBody User user) {
         return userService.create(user);

@@ -16,6 +16,7 @@ public class Genre {
      * Поле идентификатор жанра
      */
     @NotNull Integer id;
+
     /**
      * Поле содержащие имя жанра
      */

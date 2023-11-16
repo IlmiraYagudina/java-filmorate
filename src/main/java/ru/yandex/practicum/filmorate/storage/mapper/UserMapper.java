@@ -10,7 +10,6 @@ import java.sql.SQLException;
  * Маппер для реализации сущности User из данных полученных в БД
  */
 public class UserMapper implements RowMapper<User> {
-
     /**
      * Метод преобразования данных из БД в сущность
      *

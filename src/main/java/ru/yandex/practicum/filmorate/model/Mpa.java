@@ -20,6 +20,7 @@ public class Mpa {
      */
     @NotNull
     private Integer id;
+
     /**
      * Поле именем рейтинга.
      */

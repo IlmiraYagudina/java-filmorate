@@ -18,13 +18,13 @@ import java.util.HashSet;
 @Slf4j
 @Component("FilmDbStorage")
 public class FilmDbStorage implements FilmStorage {
-
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
     public FilmDbStorage(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
+
     @Override
     public Film addFilms(Film film) {
         jdbcTemplate.update("INSERT INTO film (name, description, release_date, duration, mpa_id) VALUES (?,?,?,?,?)",
