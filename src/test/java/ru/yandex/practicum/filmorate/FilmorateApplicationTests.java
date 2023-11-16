@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 class FilmorateApplicationTests  {
 	@Autowired
 	private FilmorateApplication filmorateApplication;
+
 	@Test
 	void contextLoads() {
 	}
