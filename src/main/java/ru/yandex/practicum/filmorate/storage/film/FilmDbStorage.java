@@ -1,5 +1,4 @@
 package ru.yandex.practicum.filmorate.storage.film;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,9 +19,10 @@ public class FilmDbStorage implements FilmStorage {
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public FilmDbStorage(JdbcTemplate jdbcTemplate){
+    public FilmDbStorage(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
     @Override
     public Film addFilms(Film film) {
         jdbcTemplate.update("INSERT INTO film (name, description, release_date, duration, mpa_id) VALUES (?,?,?,?,?)",
@@ -46,7 +46,7 @@ public class FilmDbStorage implements FilmStorage {
 
             }
         } catch (EmptyResultDataAccessException exception) {
-            throw new NotFoundException(String.format("Фильма с id %s не существует", filmId));
+            throw new NotFoundException(String.format("Фильм с id %s не существует", filmId));
         }
         return film;
     }
