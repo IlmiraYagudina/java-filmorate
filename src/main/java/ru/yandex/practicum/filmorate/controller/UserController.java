@@ -49,9 +49,7 @@ public class UserController {
      */
     @ResponseBody
     @PutMapping
-    public User put(@Valid @RequestBody User user) {
-        return userService.getUserStorage().put(user);
-    }
+    public User put(@Valid @RequestBody User user) { return userService.getUserStorage().put(user);}
 
     /**
      * Добавляет пользователя в друзья.
