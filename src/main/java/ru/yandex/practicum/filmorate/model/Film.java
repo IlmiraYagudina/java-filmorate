@@ -48,16 +48,18 @@ public class Film {
     /**
      * Конструктор создание нового объекта фильма.
      *
-     * @see Film#Film(Long, String, String, LocalDate, int)
+     * @see Film #Film(Long, String, String, LocalDate, int, HashSet<Genre>, Mpa)
      */
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
-    public Film(Long id, String name, String description, LocalDate releaseDate, int duration) {
+    public Film(Long id, String name, String description, LocalDate releaseDate, int duration, HashSet<Genre> genres, Mpa mpa) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.releaseDate = releaseDate;
         this.duration = duration;
+        this.genres = genres;
+        this.mpa = mpa;
     }
 
     /**
