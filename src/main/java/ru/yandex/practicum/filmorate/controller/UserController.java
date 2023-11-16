@@ -49,12 +49,10 @@ public class UserController {
      */
     @ResponseBody
     @PutMapping
-    public User put(@Valid @RequestBody User user) {
-        return userService.getUserStorage().put(user);
-    }
+    public User put(@Valid @RequestBody User user) { return userService.getUserStorage().put(user); }
 
     /**
-     * Добавляет пользователя в друзья.
+     * Добавляет пользователя в друзья..
      *
      * @param id       id пользователя кто добавляет.
      * @param friendId id пользователя кого добавляют.
