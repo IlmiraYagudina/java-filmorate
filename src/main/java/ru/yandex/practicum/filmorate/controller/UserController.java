@@ -29,7 +29,7 @@ public class UserController {
      */
     @PostMapping
     public User create(@Valid @RequestBody User user) {
-        return userService.create(user);
+        return userService.getUserStorage().create(user);
     }
 
     /**
@@ -43,13 +43,15 @@ public class UserController {
     }
 
     /**
-     * Обновление пользователя.
+     * Обновляет пользователя в хранилище.
      *
-     * @param user информация о пользователе.
+     * @param user объект пользователя.
+     * @return возвращает измененного пользователя.
      */
-    @ResponseBody
     @PutMapping
-    public User put(@Valid @RequestBody User user) { return userService.getUserStorage().put(user); }
+    public User put(@Valid @RequestBody User user) {
+        return userService.getUserStorage().put(user);
+    }
 
     /**
      * Добавляет пользователя в друзья..
