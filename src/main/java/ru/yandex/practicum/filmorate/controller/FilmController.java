@@ -16,11 +16,8 @@ import java.util.List;
 @RequestMapping("/films")
 public class FilmController {
     private final FilmDbService filmService;
-
     @Autowired
-    public FilmController(FilmDbService filmService) {
-        this.filmService = filmService;
-    }
+    public FilmController(FilmDbService filmService){this.filmService = filmService;}
 
     /**
      * Добавление фильма.
