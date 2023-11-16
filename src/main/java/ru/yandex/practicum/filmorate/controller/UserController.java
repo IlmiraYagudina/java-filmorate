@@ -49,7 +49,7 @@ public class UserController {
      */
     @ResponseBody
     @PutMapping
-    public User put(@Valid @RequestBody User user) { return userService.getUserStorage().put(user);}
+    public User put(@Valid @RequestBody User user) { return userService.getUserStorage().put(user); }
 
     /**
      * Добавляет пользователя в друзья.
@@ -91,9 +91,7 @@ public class UserController {
      * @return возвращает пользователя c указанным id.
      */
     @GetMapping("{id}")
-    public User getUser(@PathVariable Long id) {
-        return userService.getUserStorage().getByIdUser(id);
-    }
+    public User getUser(@PathVariable Long id) { return userService.getUserStorage().getByIdUser(id);}
 
     /**
      * Запрашивает общих друзей у двух пользователей.
