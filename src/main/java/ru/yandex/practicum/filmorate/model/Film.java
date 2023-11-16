@@ -50,6 +50,7 @@ public class Film {
      *
      * @see Film#Film(Long, String, String, LocalDate, int)
      */
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     public Film(Long id, String name, String description, LocalDate releaseDate, int duration) {
         this.id = id;

@@ -19,7 +19,6 @@ import ru.yandex.practicum.filmorate.storage.user.UserDbStorage;
 import ru.yandex.practicum.filmorate.exception.Validation;
 
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -119,7 +118,10 @@ public class FilmDbService {
      * @param topNumber количество, из которого необходимо составить топ(по умолчанию топ 10).
      */
     public List<Film> getPopularFilm(int topNumber) {
-        return filmStorage.getFilm().stream().sorted(Comparator.comparingInt(Film::getLike).reversed()).limit(topNumber).collect(Collectors.toList());
+        return filmStorage.getFilm().stream()
+                .sorted(this::compare)
+                .limit(topNumber)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -129,7 +131,6 @@ public class FilmDbService {
      * @return возвращает созданный фильм
      */
     public Film addFilms(Film film) {
-
         Validation.filmValidation(film);
         Film theFilm = filmStorage.addFilms(film);
         if (film.getGenres() != null) {

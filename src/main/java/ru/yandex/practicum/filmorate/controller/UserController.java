@@ -1,7 +1,5 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
@@ -11,23 +9,25 @@ import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 
-@Slf4j
-@AllArgsConstructor
+
 @RequestMapping("/users")
 @RestController
 public class UserController {
     /**
      * Поле сервис
      */
-    @Autowired
-    private final UserDbService userService;
 
+    private final UserDbService userService;
+    @Autowired
+    public UserController(UserDbService userService){
+        this.userService = userService;
+    }
     /**
      * Добавление пользователя.
      *
      * @param user информация о пользователе.
      */
-    @ResponseBody
+
     @PostMapping
     public User create(@Valid @RequestBody User user) {
         return userService.create(user);

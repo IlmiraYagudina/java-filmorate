@@ -32,6 +32,7 @@ public class User {
      *
      * @see User#User(Long, String, String, String, LocalDate)
      */
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     public User(Long id, String email, String login, String name, LocalDate birthday) {
         this.id = id;

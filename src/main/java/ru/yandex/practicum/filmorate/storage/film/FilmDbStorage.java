@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.storage.film;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -18,11 +17,14 @@ import java.util.HashSet;
 
 @Slf4j
 @Component("FilmDbStorage")
-@RequiredArgsConstructor
 public class FilmDbStorage implements FilmStorage {
-    @Autowired
+
     private final JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    public FilmDbStorage(JdbcTemplate jdbcTemplate){
+        this.jdbcTemplate = jdbcTemplate;
+    }
     @Override
     public Film addFilms(Film film) {
         jdbcTemplate.update("INSERT INTO film (name, description, release_date, duration, mpa_id) VALUES (?,?,?,?,?)",

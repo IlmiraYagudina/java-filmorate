@@ -28,7 +28,7 @@ public class GenreDbService {
      */
     public Genre getGenreById(Integer id) {
         if (id == null) {
-            throw new NotFoundException(String.format("Жанра с id %s не существует", id));
+            throw new NotFoundException("Жанра с id %s не существует");
         }
         return genreDao.getGenreById(id);
     }
