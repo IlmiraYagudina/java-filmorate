@@ -18,7 +18,7 @@ public class UserController {
     private final UserDbService userService;
 
     @Autowired
-    public UserController(UserDbService userService){
+    public UserController(UserDbService userService) {
         this.userService = userService;
     }
 
@@ -39,7 +39,7 @@ public class UserController {
      */
     @GetMapping
     public Collection<User> getUser() {
-        return userService.getUser();
+        return userService.getUserStorage().getUser();
     }
 
     /**
