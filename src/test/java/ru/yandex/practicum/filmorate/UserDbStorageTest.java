@@ -20,12 +20,12 @@ class UserDbStorageTest {
     @Test
     public void testFindUserById() {
         // Подготавливаем данные для теста
-        User newUser = new User(1l, "user@email.ru", "vanya123", "Ivan Petrov", LocalDate.of(1990, 1, 1));
+        User newUser = new User(1L, "user@email.ru", "vanya123", "Ivan Petrov", LocalDate.of(1990, 1, 1));
         UserDbStorage userStorage = new UserDbStorage(jdbcTemplate);
         userStorage.create(newUser);
 
         // вызываем тестируемый метод
-        User savedUser = userStorage.getByIdUser(1l);
+        User savedUser = userStorage.getByIdUser(1L);
 
         // проверяем утверждения
         assertThat(savedUser)
