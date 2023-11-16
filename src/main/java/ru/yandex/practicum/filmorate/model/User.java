@@ -1,10 +1,10 @@
 package ru.yandex.practicum.filmorate.model;
 
-import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 /**
@@ -30,10 +30,11 @@ public class User {
     /**
      * Конструктор создание нового объекта пользователя.
      *
-     * @see User#User(String, String, String, LocalDate)
+     * @see User#User(Long, String, String, String, LocalDate)
      */
     @Autowired
-    public User(String email, String login, String name, LocalDate birthday) {
+    public User(Long id, String email, String login, String name, LocalDate birthday) {
+        this.id = id;
         this.email = email;
         this.login = login;
         this.name = name;

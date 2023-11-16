@@ -3,7 +3,8 @@ package ru.yandex.practicum.filmorate.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
+
 
 /**
  * Класс-модель для создания объекта жанра со свойствами <b>id<b/>, <b>name<b/>.

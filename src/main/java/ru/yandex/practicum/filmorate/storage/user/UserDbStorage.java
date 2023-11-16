@@ -12,7 +12,7 @@ import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.mapper.UserMapper;
 import ru.yandex.practicum.filmorate.exception.Validation;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import java.sql.Date;
 import java.util.Collection;
 
