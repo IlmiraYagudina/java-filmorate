@@ -121,6 +121,7 @@ public class FilmDbService {
         return filmStorage.getFilm().stream()
                 .sorted(this::compare)
                 .limit(topNumber)
+                .map(f -> getByIdFilm(f.getId()))
                 .collect(Collectors.toList());
     }
 
