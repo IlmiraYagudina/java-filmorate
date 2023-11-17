@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @Component
 public class FriendDaoImpl implements FriendDao {
     private final JdbcTemplate jdbcTemplate;
+
     @Autowired
     public FriendDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
