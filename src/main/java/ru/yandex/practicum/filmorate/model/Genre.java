@@ -15,10 +15,10 @@ public class Genre {
     /**
      * Поле идентификатор жанра
      */
-    @NotNull Integer id;
+    Integer id;
 
     /**
      * Поле содержащие имя жанра
      */
-    @NotNull String name;
+    String name;
 }

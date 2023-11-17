@@ -22,7 +22,7 @@ public class Mpa {
     private Integer id;
 
     /**
-     * Поле именем рейтинга.
+     * Поле c именем рейтинга.
      */
     @NotNull
     private String name;

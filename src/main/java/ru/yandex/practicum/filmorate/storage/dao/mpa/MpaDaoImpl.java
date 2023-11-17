@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.storage.dao.mpa;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -9,11 +8,14 @@ import ru.yandex.practicum.filmorate.storage.mapper.MpaMapper;
 
 import java.util.List;
 
-@AllArgsConstructor
 @Component
 public class MpaDaoImpl implements MpaDao {
-    @Autowired
     private final JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public MpaDaoImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public Mpa getMpaById(Integer id) {

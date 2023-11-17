@@ -1,4 +1,6 @@
 package ru.yandex.practicum.filmorate.storage.film;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,6 +15,7 @@ import java.sql.Date;
 import java.util.Collection;
 import java.util.HashSet;
 
+@Slf4j
 @Component("FilmDbStorage")
 public class FilmDbStorage implements FilmStorage {
 
@@ -58,7 +61,6 @@ public class FilmDbStorage implements FilmStorage {
 
     @Override
     public Film getByIdFilm(Long id) {
-
         return jdbcTemplate.queryForObject("SELECT * FROM film WHERE film_id = ?", new FilmMapper(), id);
     }
 

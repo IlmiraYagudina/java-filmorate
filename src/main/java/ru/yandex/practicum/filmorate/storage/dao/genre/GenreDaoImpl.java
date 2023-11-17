@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.storage.dao.genre;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,11 +11,15 @@ import ru.yandex.practicum.filmorate.storage.mapper.GenreMapper;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
-@AllArgsConstructor
+
 @Component
 public class GenreDaoImpl implements GenreDao {
-    @Autowired
     private final JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public GenreDaoImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public Genre getGenreById(Integer id) {
