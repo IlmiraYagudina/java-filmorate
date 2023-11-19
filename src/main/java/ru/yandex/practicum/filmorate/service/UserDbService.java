@@ -19,6 +19,7 @@ import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 /**
  * Класс-сервис с логикой для оперирования пользователями с хранилищами <b>userDbStorage<b/>
  */
@@ -138,7 +139,8 @@ public class UserDbService {
             log.info("Запрошены друзья у пользователя с id {}", id);
             return friendDao.getFriend(id)
                     .stream()
-                    .map(userStorage::getByIdUser)
+                    .mapToLong(Long::valueOf)
+                    .mapToObj(userStorage::getByIdUser)
                     .collect(Collectors.toList());
         } else {
             throw new NotFoundException(String.format("Пользователь с id %s не существует", id));
