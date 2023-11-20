@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.storage.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.storage.dao.friend.FriendDao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +11,12 @@ import java.sql.SQLException;
  * Маппер для реализации сущности User из данных полученных в БД
  */
 public class UserMapper implements RowMapper<User> {
+//    private final FriendDao friendDao;
+//
+//    public UserMapper(FriendDao friendDao) {
+//        this.friendDao = friendDao;
+//    }
+
     /**
      * Метод преобразования данных из БД в сущность
      *

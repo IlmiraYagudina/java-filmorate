@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.storage.dao.friend;
 
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
+import ru.yandex.practicum.filmorate.model.User;
 
 import java.util.List;
 
@@ -43,5 +44,5 @@ public interface FriendDao {
      * @return возвращает список друзей или пустой список если их нет.
      * @throws NotFoundException генерирует 404 ошибку в случае если пользователя не существует.
      */
-    List<Long> getFriend(Long userId);
+    List<User> getFriend(Long userId);
 }

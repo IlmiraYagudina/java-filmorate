@@ -5,11 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import ru.yandex.practicum.filmorate.model.Friend;
+import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.mapper.FriendMapper;
+import ru.yandex.practicum.filmorate.storage.mapper.UserMapper;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class FriendDaoImpl implements FriendDao {
@@ -44,11 +44,8 @@ public class FriendDaoImpl implements FriendDao {
     }
 
     @Override
-    public List<Long> getFriend(Long userId) {
-        return jdbcTemplate.query("SELECT user_id, friend_id, status FROM friends WHERE user_id=?",
-                        new FriendMapper(), userId)
-                .stream()
-                .map(Friend::getFriendId)
-                .collect(Collectors.toList());
+    public List<User> getFriend(Long userId) {
+        return jdbcTemplate.query("SELECT * FROM users  WHERE user_id IN (SELECT friend_id FROM friends WHERE user_id=?)",
+                        new UserMapper(), userId);
     }
 }

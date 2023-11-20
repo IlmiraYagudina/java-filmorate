@@ -135,11 +135,7 @@ public class UserDbService {
      * @throws NotFoundException генерирует 404 ошибку в случае если пользователя не существует.
      */
     public List<User> getFriends(Long id) {
-        List<User> listFriends = new ArrayList<>();
-        for (Long friends : friendDao.getFriend(id)) {
-            listFriends.add(userStorage.getByIdUser(friends));
-        }
-        return listFriends;
+        return friendDao.getFriend(id);
     }
 
     /**
