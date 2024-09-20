@@ -1,8 +1,8 @@
 # java-filmorate: Mini социальная сеть с фильмами
 ## Групповой проект 
 ## Команда:
- * [Лид:](https://github.com/)
- * [Ягудина Ильмира](https://github.com/IlmiraYagudina)
+ * [Александр](https://github.com/SAleksandrEr)
+ * [Ильмира (я)](https://github.com/IlmiraYagudina)
  * [x]()
  * [e]()
  * [g]()
