@@ -1,26 +1,29 @@
 package ru.yandex.practicum.filmorate.storage.film;
 
-import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.filmorate.exception.NotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.exception.Validation;
+import ru.yandex.practicum.filmorate.model.Genre;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
  * Класс-хранилище реализующий интерфейс {@link FilmStorage} для хранения и обновления фильмов со свойствами <b>films<b/> и <b>id<b/>
  */
-@Component
+@Component("InMemoryFilmStorage")
 @Slf4j
 public class InMemoryFilmStorage implements FilmStorage {
     /**
      * Поле хранилище фильмов
      */
     private final Map<Long, Film> films = new HashMap<>();
+
     /**
      * Поле счетчик идентификаторов фильмов
      */
@@ -32,7 +35,6 @@ public class InMemoryFilmStorage implements FilmStorage {
      * @param film информация о фильме.
      * @return возвращает созданный фильм
      */
-
     public Film addFilms(@Valid Film film) {
         Validation.filmValidation(film);
         log.debug("Фильм добавлен");
@@ -87,5 +89,13 @@ public class InMemoryFilmStorage implements FilmStorage {
             log.debug("Фильм не существует");
             throw new NotFoundException(String.format("Фильм с id %s не существует", id));
         }
+    }
+
+    /**
+     * Заглушка
+     */
+    @Override
+    public HashSet<Genre> getGenresByFilm(Long filmId) {
+        return null;
     }
 }

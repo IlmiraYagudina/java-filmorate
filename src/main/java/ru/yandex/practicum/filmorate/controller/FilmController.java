@@ -1,32 +1,32 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.service.FilmService;
+import ru.yandex.practicum.filmorate.service.FilmDbService;
 import ru.yandex.practicum.filmorate.model.Film;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 
 /**
  * Класс-контроллер для оценки фильмов и реализации API со свойством <b>filmService</b>.
  */
-
 @RestController
 @RequestMapping("/films")
-@AllArgsConstructor
 public class FilmController {
+    private final FilmDbService filmService;
+
     @Autowired
-    private final FilmService filmService;
+    public FilmController(FilmDbService filmService) {
+        this.filmService = filmService;
+    }
 
     /**
      * Добавление фильма.
      *
      * @param film информация о фильме.
      */
-    @ResponseBody
     @PostMapping
     public Film addFilms(@Valid @RequestBody Film film) {
         return filmService.addFilms(film);
@@ -88,7 +88,7 @@ public class FilmController {
     /**
      * Запрос фильмов по количеству лайков
      *
-     * @param count количество попавших в топ фильмов(Если не указано, то 10)
+     * @param count количество попавших в топ фильмов (Если не указано, то 10)
      * @return возвращает список фильмов с количеством лайков (От большего к меньшему)
      */
     @GetMapping("popular")

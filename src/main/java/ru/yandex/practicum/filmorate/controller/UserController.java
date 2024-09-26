@@ -1,37 +1,35 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.service.UserService;
+import ru.yandex.practicum.filmorate.service.UserDbService;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 
-@Slf4j
-@AllArgsConstructor
 @RequestMapping("/users")
 @RestController
 public class UserController {
     /**
      * Поле сервис
      */
-    @Autowired
-    private final UserService userService;
+    private final UserDbService userService;
 
+    @Autowired
+    public UserController(UserDbService userService) {
+        this.userService = userService;
+    }
 
     /**
      * Добавление пользователя.
      *
      * @param user информация о пользователе.
      */
-    @ResponseBody
     @PostMapping
     public User create(@Valid @RequestBody User user) {
-        return userService.create(user);
+        return userService.getUserStorage().create(user);
     }
 
     /**
@@ -41,22 +39,22 @@ public class UserController {
      */
     @GetMapping
     public Collection<User> getUser() {
-        return userService.getUser();
+        return userService.getUserStorage().getUser();
     }
 
     /**
-     * Обновление пользователя.
+     * Обновляет пользователя в хранилище.
      *
-     * @param user информация о пользователе.
+     * @param user объект пользователя.
+     * @return возвращает измененного пользователя.
      */
-    @ResponseBody
     @PutMapping
     public User put(@Valid @RequestBody User user) {
         return userService.getUserStorage().put(user);
     }
 
     /**
-     * Добавляет пользователя в друзья.
+     * Добавляет пользователя в друзья..
      *
      * @param id       id пользователя кто добавляет.
      * @param friendId id пользователя кого добавляют.

@@ -1,8 +1,10 @@
 package ru.yandex.practicum.filmorate.storage.film;
 
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.model.Genre;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * Интерфейс для работы с хранилищем фильмов, реализован в {@link InMemoryFilmStorage}
@@ -36,4 +38,12 @@ public interface FilmStorage {
      * @return возвращает фильм с указанным id
      */
     Film getByIdFilm(Long id);
+
+    /**
+     * Метод получения жанра по идентификатору фильма
+     *
+     * @param filmId идентификатор фильма
+     * @return возвращает коллекцию жанров фильма
+     */
+    HashSet<Genre> getGenresByFilm(Long filmId);
 }
